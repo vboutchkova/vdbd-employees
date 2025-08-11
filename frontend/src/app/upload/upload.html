@@ -1,0 +1,39 @@
+<h2>Upload CSV File and Analyze</h2>
+
+<input type="file" (change)="onFileSelected($event)" #fileInput>
+<button (click)="clearAll()">Clear</button>
+<button (click)="onUpload()">Upload & Analyze</button>
+
+<br><br>
+<label>
+  Date format:
+  <input type="text" [(ngModel)]="dateFormat" placeholder="{{ DEFAULT_DATE_FORMAT }}" />
+</label>
+
+<p *ngIf="message" style="color: green;">{{ message }}</p>
+<p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}<br>{{ detailedMessage }}</p>
+
+<table *ngIf="resultRows.length > 0">
+  <thead>
+    <tr>
+      <th>Employee ID #1</th>
+      <th>Employee ID #2</th>
+      <th>Project ID</th>
+      <th>Days worked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of resultRows">
+      <td>{{ row.emp1 }}</td>
+      <td>{{ row.emp2 }}</td>
+      <td>{{ row.projectId }}</td>
+      <td>{{ row.days }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="text-align: right; font-weight: bold;">Total time:</td>
+      <td>{{ totalTime }}</td>
+    </tr>
+  </tfoot>
+</table>
