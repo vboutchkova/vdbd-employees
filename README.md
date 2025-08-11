@@ -1,4 +1,7 @@
+# Employees 
+Full-stack **Spring Boot** application for finding a pair of employees with maximal work time on common projects.
 
+This is the v2 of the application with fixed tests, added date format input field, counting the multiple work periods on same project and showing the backend error messages in the frontend.
 
 ## 1. Run Backend
 ./gradlew bootRun
