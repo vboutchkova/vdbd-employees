@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.employeeprojects'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+//    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework:spring-test')
+}
+
+test {
+    useJUnitPlatform()
+}

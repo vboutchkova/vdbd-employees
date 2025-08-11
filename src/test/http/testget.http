@@ -1,0 +1,66 @@
+
+###
+GET http://localhost:8080/api/employee-pairs/test
+Accept: application/json
+
+
+### Upload CSV-0 file
+POST http://localhost:8080/api/employee-pairs/analyze
+Content-Type: multipart/form-data; boundary=myBoundary
+
+--myBoundary
+Content-Disposition: form-data; name="file"; filename="employees0.csv"
+
+< ./employees0.csv
+
+--myBoundary--
+
+
+### Upload CSV-1 file
+POST http://localhost:8080/api/employee-pairs/analyze
+Content-Type: multipart/form-data; boundary=myBoundary
+
+--myBoundary
+Content-Disposition: form-data; name="file"; filename="employees1.csv"
+
+< ./employees1.csv
+
+--myBoundary--
+
+
+
+### Upload CSV-2 file
+POST http://localhost:8080/api/employee-pairs/analyze?dateFormat=dd.MM.yyyy
+Content-Type: multipart/form-data; boundary=myBoundary
+
+--myBoundary
+Content-Disposition: form-data; name="file"; filename="employees2.csv"
+
+< ./employees2.csv
+
+--myBoundary--
+
+
+
+### Upload CSV-3 file
+POST http://localhost:8080/api/employee-pairs/analyze
+Content-Type: multipart/form-data; boundary=myBoundary
+
+--myBoundary
+Content-Disposition: form-data; name="file"; filename="employees3.csv"
+
+< ./employees3.csv
+
+--myBoundary--
+
+
+### Upload CSV-4 file
+POST http://localhost:8080/api/employee-pairs/analyze
+Content-Type: multipart/form-data; boundary=myBoundary
+
+--myBoundary
+Content-Disposition: form-data; name="file"; filename="employees4.csv"
+
+< ./employees4.csv
+
+--myBoundary--
