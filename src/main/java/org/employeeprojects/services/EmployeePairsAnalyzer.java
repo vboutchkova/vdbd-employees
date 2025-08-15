@@ -59,7 +59,9 @@ public class EmployeePairsAnalyzer {
     private Map<Pair, Map<String, Long>> findCommonProjects(Map<String, EmployeeProjects> employeesFromFile) {
         Map<Pair, Map<String, Long>> pairsToProjects = new HashMap<>();
 
-        List<String> employeesIds = employeesFromFile.keySet().stream().toList();
+        // Sort keys once to ensure consistent pair ordering and avoid (a,b)/(b,a) duplication.
+        // The sort here has complexity O(n log n), but the following algorithm is quadratic O(n²), thus the sort does not increase the total complexity.
+        List<String> employeesIds = employeesFromFile.keySet().stream().sorted().toList();
         for (int i = 0; i < employeesIds.size() - 1; i++) {
             for (int j = i + 1; j < employeesIds.size(); j++) {
 

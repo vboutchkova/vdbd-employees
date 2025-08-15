@@ -19,6 +19,28 @@ Backend Endpoints are accessible at http://localhost:8080
 Frontend will run at: http://localhost:4200
 
 
+## Development Notes
+
+### Implementation Decision: Sorted Keys for Pairing
+
+In the pairing logic, the keys from the map (employeesFromFile.keySet()) are sorted once before the nested iteration begins:
+
+This design choice was made intentionally to:
+
+   * Avoid duplicate pairings – Prevents logically identical pairs like (A, B) and (B, A) from being treated as distinct keys.
+
+   * Ensure deterministic iteration – The result will always be the same regardless of HashMap key order.
+
+   * Improve readability – Sorting up-front avoids having to manually compare and normalize every pair within the loop.
+
+Although sorting has complexity O(n log n), the full pairing logic is O(n²) due to the double loop, so the sort does not affect the overall asymptotic complexity.
+
+
+### Suggestions for Further Improvement:
+
+See [todo.md](./todo.md) for reflections on the task, reasoning and pending improvements.
+
+
 ## Problem Description
 Pair of employees who have worked together
 
