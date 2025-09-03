@@ -55,10 +55,55 @@ Or even use a double for loop — easier to debug.
 
   * A parameterized test for Period,
   * A test for the parser with various formats and NULL.
+ 
+# Dependency Inversion Principle
+
+Current issue: The high-level business service EmployeePairsAnalyzer depends on the low-level concrete implementation ProjectsFileParser. This violates DIP.
+Fix: Make the service depend on an abstraction (interface) and let Spring inject the desired implementation.
+
+* **Interface**
+```java
+  public interface ProjectsDataParser {
+     Map<String, EmployeeProjects> processFile(File file, String dateForNull, String dateFormat);
+  }
+```
+
+* **CSV implementation**
+
+```java
+@Component
+public class CsvProjectsDataParser implements ProjectsDataParser {
+    @Override
+    public Map<String, EmployeeProjects> processFile(File file, String dateForNull, String dateFormat) {
+        // CSV parsing logic
+    }
+}
+```
+
+
+
+* **High-level service depends on the abstraction**
+
+```java
+  @Component
+  public class EmployeePairsAnalyzer {
+  
+      private final ProjectsDataParser parser;
+  
+      @Autowired
+      public EmployeePairsAnalyzer(ProjectsDataParser parser) {
+          this.parser = parser;
+      }
+  
+      // ...
+  }
+```
+
+If you have multiple implementations, mark a default with @Primary or qualify explicitly with constructor EmployeePairsAnalyzer(@Qualifier("csvProjectsDataParser") ProjectsDataParser parser)
 
 # Example of Centralized Date Parsing
 
-
+```java
     private static final List<DateTimeFormatter> SUPPORTED = List.of(
         DateTimeFormatter.ofPattern("yyyy-MM-dd"),
         DateTimeFormatter.ofPattern("dd.MM.yyyy"),
@@ -74,4 +119,5 @@ Or even use a double for loop — easier to debug.
             try { return LocalDate.parse(s, f); } catch (DateTimeParseException ignored) {}
         }
         throw new IllegalArgumentException("Unsupported date: " + raw);
-        }
+    }
+```
